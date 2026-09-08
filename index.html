@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museum Digital Arsip Nasional: Sejarah Lengkap DI/TII</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cinzel:wght@600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #080c14;
+            --paper-bg: #f4ecdc;
+            --paper-dark: #e0d4be;
+            --text-dark: #1e1914;
+            --accent-red: #8b1e1e;
+            --accent-red-hover: #a82525;
+            --border-color: #4a3c2c;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--paper-bg);
+            font-family: 'Lora', serif;
+            background-image: radial-gradient(circle at center, #1b263b 0%, #080c14 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 45px 20px;
+            border-bottom: 3px double var(--gold);
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+            position: relative;
+        }
+
+        header h3 {
+            font-family: 'Special Elite', cursive;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            color: var(--paper-bg);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-style: italic;
+            color: #d1c7b7;
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Museum Room Navigation */
+        .museum-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .wing-btn {
+            background-color: var(--paper-bg);
+            color: var(--text-dark);
+            border: 3px solid var(--border-color);
+            padding: 14px 10px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .wing-btn:hover, .wing-btn.active {
+            background-color: var(--accent-red);
+            color: white;
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+        }
+
+        /* Museum Wings / Rooms */
+        .museum-wing {
+            display: none;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .museum-wing.active {
+            display: block;
+        }
+
+        .exhibit-card {
+            background-color: var(--paper-bg);
+            color: var(--text-dark);
+            border: 4px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .exhibit-card h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-red);
+            border-bottom: 2px solid var(--accent-red);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+
+        .exhibit-card h3 {
+            font-family: 'Cinzel', serif;
+            color: #3b2f2f;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            border-left: 5px solid var(--accent-red);
+            padding-left: 12px;
+        }
+
+        .exhibit-card p {
+            line-height: 1.9;
+            margin-bottom: 16px;
+            font-size: 1.08rem;
+            text-align: justify;
+        }
+
+        .exhibit-card ul {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .exhibit-card li {
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .critical-box {
+            background-color: var(--paper-dark);
+            border: 2px dashed var(--accent-red);
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .critical-box::before {
+            content: "KURATORIAL & ANALISIS KRITIS";
+            position: absolute;
+            top: -13px;
+            left: 20px;
+            background-color: var(--accent-red);
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            padding: 3px 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Quiz Wing Arena */
+        .quiz-arena {
+            background-color: #111827;
+            border: 3px solid var(--gold);
+            padding: 35px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .quiz-arena h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 12px;
+        }
+
+        .question-card {
+            background-color: #1f2937;
+            border: 2px solid #374151;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .question-card p {
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: var(--paper-bg);
+            text-align: left;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .opt-btn {
+            background-color: #374151;
+            color: white;
+            border: 1px solid #4b5563;
+            padding: 12px 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Lora', serif;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .opt-btn:hover {
+            background-color: var(--accent-red);
+            border-color: var(--gold);
+        }
+
+        .opt-btn.correct {
+            background-color: #15803d !important;
+            border-color: #4ade80 !important;
+        }
+
+        .opt-btn.wrong {
+            background-color: #b91c1c !important;
+            border-color: #f87171 !important;
+        }
+
+        #quiz-score-board {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-top: 25px;
+            padding: 18px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-style: italic;
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-top: 50px;
+            border-top: 1px solid #374151;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h3>Museum Virtual Arsip Nasional Republik Indonesia</h3>
+        <h1>Galeri Studi Mendalam: Disintegrasi Bangsa DI/TII (1948–1965)</h1>
+        <p>"Menyusuri lembaran sejarah kelam bangsa dengan pembahasan kuratorial yang lengkap, komprehensif, dan mendalam layaknya ensiklopedia museum profesional."</p>
+    </header>
+
+    <div class="container">
+        <!-- Navigasi Ruangan Museum (Museum Wings) -->
+        <div class="museum-nav">
+            <button class="wing-btn active" onclick="switchWing('wing1')">🏛️ Ruang 1: Akar & Kritis</button>
+            <button class="wing-btn" onclick="switchWing('wing2')">📍 Ruang 2: Jawa Barat</button>
+            <button class="wing-btn" onclick="switchWing('wing3')">📍 Ruang 3: Aceh</button>
+            <button class="wing-btn" onclick="wingJump('wing4')">📍 Ruang 4: Jawa Tengah</button>
+            <button class="wing-btn" onclick="wingJump('wing5')">📍 Ruang 5: Sulawesi Selatan</button>
+            <button class="wing-btn" onclick="wingJump('wing6')">📍 Ruang 6: Kalimantan Selatan</button>
+            <button class="wing-btn" onclick="wingJump('wing7')">⚖️ Ruang 7: Dampak & Nilai</button>
+            <button class="wing-btn" onclick="wingJump('wing8')">🎮 Ruang 8: Ujian Museum</button>
+        </div>
+
+        <!-- RUANG 1: AKAR IDEOLOGI & ANALISIS KRITIS -->
+        <div id="wing1" class="museum-wing active">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial I: Akar Ideologi, Historis, & Analisis Kritis</h2>
+                
+                <h3>1. Pengantar Disintegrasi Awal Kemerdekaan</h3>
+                <p>Periode awal kemerdekaan Republik Indonesia (1945–1950) tidak hanya diwarnai oleh agresi militer kolonial Belanda yang ingin menegakkan kembali kekuasaannya melalui NICA, tetapi juga diuji oleh konflik internal yang mengancam disintegrasi bangsa dari dalam. Salah satu gerakan separatisme bersenjata paling masif dan terstruktur adalah Darul Islam/Tentara Islam Indonesia (DI/TII).</p>
+
+                <h3>2. Biografi Intelektual dan Peran S.M. Kartosuwiryo</h3>
+                <p>Gerakan ini dimotori oleh Sekarmadji Maridjan Kartosuwiryo. Pada mulanya, Kartosuwiryo bukanlah musuh Republik; ia adalah tokoh pergerakan Islam terkemuka yang ikut mendirikan Partai Sarekat Islam Indonesia (PSII), menjadi salah satu bapak pendiri (founding fathers) partai Masyumi, serta aktif di dalam Komite Nasional Indonesia Pusat (KNIP). Ia memiliki andil dalam barisan perjuangan bersenjata melawan pendudukan kembali oleh Belanda.</p>
+
+                <div class="critical-box">
+                    <p><strong>Analisis Kritis Mendalam: Mengapa Kartosuwiryo Memproklamasikan NII pada 1949, Bukan 1945?</strong></p>
+                    <p>Banyak kalangan awam bertanya-tanya: Mengapa ketika Soekarno-Hatta memproklamasikan kemerdekaan pada 17 Agustus 1945, Kartosuwiryo tidak langsung mendirikan negara Islam saat itu juga?</p>
+                    <p style="margin-top: 12px;">Secara historis-ideologis, Kartosuwiryo membedakan secara tegas antara konsep <em>"Indonesia Merdeka"</em> dengan <em>"Indonesia Berdaulat Berdasarkan Syariat Islam"</em>. Pada tahun 1945, ia masih menoleransi bentuk Republik karena menganggap fokus utama adalah mengusir penjajah. Namun, kekecewaannya menumpuk akibat perubahan rumusan Piagam Jakarta (penghapusan tujuh kata yang mewajibkan syariat Islam bagi pemeluknya) yang dianggapnya sebagai pengkhianatan terhadap cita-cita umat Islam.</p>
+                    <p style="margin-top: 12px;">Titik didihnya terjadi pada <strong>Perjanjian Renville (1948)</strong>. Dalam perjanjian tersebut, wilayah Jawa Barat diserahkan sementara kepada Belanda, dan seluruh pasukan Republik (termasuk Divisi Siliwangi) diperintahkan hijrah ke Jawa Tengah. Kartosuwiryo menolak keras keputusan ini. Ia menganggap pemerintah pusat telah menjual Jawa Barat kepada musuh. Memanfaatkan kekosongan kekuasaan dan dukungan laskar bersenjata lokal (Hizbullah dan Sabilillah), ia mendeklarasikan berdirinya <strong>Negara Islam Indonesia (NII) pada 7 Agustus 1949</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RUANG 2: JAWA BARAT -->
+        <div id="wing2" class="museum-wing">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial II: Episentrum Perlawanan DI/TII Jawa Barat</h2>
+                
+                <h3>1. Basis Kekuatan dan Proklamasi NII</h3>
+                <p>Jawa Barat merupakan jantung sekaligus pusat komando utama seluruh jaringan Darul Islam di Indonesia. Basis utama pergerakan ini terkonsentrasi di daerah pedalaman yang berbukit-bukit dan strategis secara gerilya, terutama di wilayah Garut, Tasikmalaya, Majalengka, dan Cirebon.</p>
+                <p>Pada 7 Agustus 1949, melalui Maklumat No. II, Kartosuwiryo secara resmi mengukuhkan berdirinya Negara Islam Indonesia dengan struktur pemerintahan militer dan sipil yang lengkap. Ia membentuk Tentara Islam Indonesia (TII) untuk menghadapi tentara Republik (TNI/APRIS).</p>
+
+                <h3>2. Strategi Militer Penumpasan: Operasi Pagar Betis & Bharatayudha</h3>
+                <p>Pemerintah Republik Indonesia awalnya mencoba menempuh jalur diplomasi dan persuasi agar Kartosuwiryo mau kembali ke pangkuan NKRI. Namun, pendekatan damai tersebut menemui jalan buntu karena Kartosuwiryo bersikeras mempertahankan negara tandingannya.</p>
+                <p>Mengingat medan gerilya di pegunungan Jawa Barat sangat sulit ditembus dengan metode perang konvensional, Angkatan Perang Republik Indonesia (APRI) di bawah pimpinan Jenderal A.H. Nasution dan Divisi Siliwangi merancang strategi militer brilian bernama **Operasi Bharatayudha**.</p>
+                <ul>
+                    <li><strong>Strategi Pagar Betis:</strong> Sebuah siasat taktis di mana ribuan rakyat sipil yang dibekali pelatihan militer bersama tentara dikerahkan untuk membuat barisan pengamanan berlapis di kaki gunung dan jalur logistik pemberontak. Tujuannya adalah memutus total suplai makanan, amunisi, dan ruang gerak pasukan Kartosuwiryo dari desa-desa di bawah.</li>
+                    <li><strong>Akhir Gerakan:</strong> Setelah bertahun-tahun terisolasi, kekuatan militer DI/TII Jawa Barat melemah drastis. Pada tanggal **4 Juni 1962**, Kartosuwiryo akhirnya berhasil ditangkap hidup-hidup oleh pasukan pasukannya di tempat persembunyiannya di Gunung Geber, Majalaya, Jawa Barat. Ia kemudian diadili oleh Mahkamah Militer Luar Biasa dan dijatuhi hukuman mati, yang sekaligus meruntuhkan pusat imperium DI/TII.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RUANG 3: ACEH -->
+        <div id="wing3" class="museum-wing">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial III: Gerakan DI/TII di Aceh</h2>
+                
+                <h3>1. Latar Belakang Kekecewaan Teungku Daud Beureueh</h3>
+                <p>Pemberontakan DI/TII di Aceh yang meletus pada **20 September 1953** dipimpin oleh seorang ulama kharismatik dan pemimpin pejuang lokal yang sangat dihormati, yaitu **Teungku Daud Beureueh**. Beliau sebelumnya menjabat sebagai Gubernur Militer Aceh, Langkat, dan Tanah Karo selama masa perang kemerdekaan.</p>
+                <p>Akar konflik di Aceh berbeda karakternya dengan Jawa Barat. Penyebab utamanya adalah kekecewaan mendalam terhadap kebijakan sentralisasi pemerintah pusat di Jakarta. Pada tahun 1951, pemerintah membubarkan Provinsi Aceh dan menurunkan statusnya menjadi sekadar Karesidenan di bawah Provinsi Sumatra Utara yang berpusat di Medan.</p>
+
+                <h3>2. Tuntutan Otonomi Keagamaan dan Adat</h3>
+                <p>Bagi masyarakat Aceh yang memiliki tradisi keislaman yang sangat kuat dan otonomi historis yang tinggi, peleburan administratif ini dianggap sebagai bentuk pengabaian atas jasa besar Aceh selama revolusi fisik (di mana Aceh dijuluki sebagai "Daerah Modal" perjuangan kemerdekaan RI).</p>
+                <p>Daud Beureueh menuntut agar Aceh diberikan kebebasan penuh dalam mengatur sistem pendidikan, hukum, dan urusan keagamaan berdasarkan syariat Islam. Kegagalan negosiasi politik membuat ia memutuskan untuk bergabung dengan jaringan DI/TII Kartosuwiryo dan mendeklarasikan perlawanan bersenjata terhadap Jakarta.</p>
+
+                <h3>3. Penyelesaian Damai Melalui Musyawarah Kerukunan Rakyat Aceh</h3>
+                <p>Menyadari bahwa Aceh memiliki karakteristik sosiokultural dan keagamaan yang sangat khas, pemerintah pusat menghindari penggunaan operasi militer represif skala besar yang dikhawatirkan akan memicu pertumpahan darah berkepanjangan.</p>
+                <p>Pemerintah menginisiasi pendekatan persuasif melalui tokoh-tokoh nasional dan ulama moderat. Puncaknya pada tanggal **17–21 Desember 1962**, diselenggarakanlah **Musyawarah Kerukunan Rakyat Aceh (MKRA)** atas prakarsa Kolonel M. Jasin. Dalam forum tersebut dicapai kesepakatan damai, di mana pemerintah pusat mengembalikan status Aceh sebagai **Daerah Istimewa** dengan hak otonomi luas di bidang agama, adat istiadat, dan pendidikan. Dengan solusi bermartabat ini, Daud Beureueh kembali ke masyarakat dan konflik Aceh terselesaikan secara damai.</p>
+            </div>
+        </div>
+
+        <!-- RUANG 4: JAWA TENGAH -->
+        <div id="wing4" class="museum-wing">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial IV: Gerakan DI/TII di Jawa Tengah</h2>
+                
+                <h3>1. Deklarasi Amir Fatah & Gerakan Batalyon 426</h3>
+                <p>Gerakan DI/TII di Jawa Tengah terkonsentrasi di wilayah pegunungan selatan (seperti Pekalongan, Tegal, Brebes, Banyumas, dan Kebumen). Gerakan ini dipimpin oleh **Amir Fatah**, seorang mantan komandan laskar Hizbullah yang memiliki pengaruh kuat di kalangan pejuang Islam lokal.</p>
+                <p>Pada awalnya, Amir Fatah dan pasukannya berjuang di bawah panji Republik Indonesia. Namun, seiring berjalannya waktu, terjadi ketegangan antara kelompok laskar bersenjata independen dengan kebijakan rasionalisasi militer yang diterapkan oleh pemerintah pusat dan pimpinan TNI.</p>
+                <p>Pada tanggal **23 Agustus 1949**, Amir Fatah secara resmi menyatakan diri bergabung dengan Negara Islam Indonesia (NII) buatan Kartosuwiryo dan mendeklarasikan berdirinya pasukan DI/TII di Jawa Tengah. Situasi semakin rumit ketika terjadi pembelotan unsur militer internal, seperti bergabungnya Batalyon 426 pimpinan Mayor Infanteri Sujadi yang membangkang terhadap komando TNI.</p>
+
+                <h3>2. Konflik Bersenjata Terbuka dan Operasi Penumpasan</h3>
+                <p>Keberadaan DI/TII di Jawa Tengah menimbulkan instabilitas keamanan yang parah di jalur logistik antara Jawa Barat dan Jawa Tengah. Kelompok ini sering melakukan teror, perampokan pos militer, serta pengambilalihan pemerintahan desa secara paksa.</p>
+                <p>Untuk menumpas gerakan ini, TNI mengerahkan operasi gabungan militer. Pemerintah membentuk pasukan khusus yang dinamakan **Gerakan Banteng Negara (GBN)** di bawah komando Letnan Kolonel M. Sarbini. Melalui pertempuran terstruktur dan penyisiran ketat di wilayah pegunungan, kekuatan Amir Fatah berhasil dipatahkan, dan gerakannya berhasil dipadamkan sepenuhnya pada awal tahun 1950-an.</p>
+            </div>
+        </div>
+
+        <!-- RUANG 5: SULAWESI SELATAN -->
+        <div id="wing5" class="museum-wing">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial V: Gerakan DI/TII di Sulawesi Selatan</h2>
+                
+                <h3>1. Pemberontakan Kahar Muzakkar & Dilema KGSS</h3>
+                <p>Di wilayah timur Indonesia, episentrum pemberontakan DI/TII yang paling besar terjadi di Sulawesi Selatan di bawah pimpinan **Kahar Muzakkar**. Konflik ini meletus sekitar tahun **1950** dan berlangsung dalam kurun waktu yang sangat panjang hingga tahun 1965.</p>
+                <p>Akar permasalahan bermula dari masalah integrasi militer pasca-penyerahan kedaulatan. Kahar Muzakkar adalah pemimpin **KGSS (Komando Gerilya Sulawesi Selatan)**. Ia menuntut agar seluruh anggota pasukannya yang berasal dari kesatuan gerilya lokal dimasukkan secara utuh ke dalam Angkatan Perang Republik Indonesia Serikat (APRIS) tanpa melalui prosedur seleksi formal militer.</p>
+
+                <h3>2. Penolakan Pemerintah dan Eskalasi Menjadi DI/TII</h3>
+                <p>Pemerintah pusat dan pimpinan militer (terutama Kolonel Alex Kawilarang) menolak tuntutan tersebut karena standar profesionalisme militer mengharuskan adanya seleksi ketat terhadap rekrutmen prajurit reguler.</p>
+                <p>Merasa diabaikan dan aspirasi pasukannya ditolak mentah-mentah, Kahar Muzakkar beserta pengikut setianya memilih keluar dari barisan APRIS dan melarikan diri ke hutan untuk melakukan perlawanan bersenjata. Pada tahun 1952, dalam upaya mencari legitimasi politik dan jaringan aliansi strategis, Kahar Muzakkar secara resmi menyatakan menggabungkan kelompok gerilyanya ke dalam jaringan Negara Islam Indonesia (NII) pimpinan Kartosuwiryo.</p>
+
+                <h3>3. Operasi Militer Panjang dan Berakhirnya Kahar Muzakkar</h3>
+                <p>Medan pertempuran di Sulawesi Selatan sangat berat karena memadukan perang gerilya hutan tropis dan wilayah pegunungan terjal. Pemberontakan ini menimbulkan banyak korban jiwa serta menghambat proses pembangunan ekonomi kawasan timur Indonesia.</p>
+                <p>Pemerintah pusat melancarkan operasi militer penumpasan secara konsisten. Setelah bertahun-tahun terdesak, pelarian Kahar Muzakkar berakhir ketika ia tewas tertembak dalam sebuah baku tembak dengan pasukan TNI dari Brigade Infanteri 3/Kujang di daerah muara Sungai Lasolo, Sulawesi Tenggara, pada **Februari 1965**, yang sekaligus menutup babak pemberontakan DI/TII di Sulawesi Selatan.</p>
+            </div>
+        </div>
+
+        <!-- RUANG 6: KALIMANTAN SELATAN -->
+        <div id="wing6" class="museum-wing">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial VI: Gerakan DI/TII di Kalimantan Selatan</h2>
+                
+                <h3>1. Perlawanan Ibnu Hadjar & Kelompok PRT</h3>
+                <p>Gerakan DI/TII di pulau Kalimantan dipimpin oleh **Ibnu Hadjar**, seorang mantan letnan dua di dalam struktur Tentara Nasional Indonesia yang kemudian memutuskan untuk membangkang terhadap kebijakan militer pusat.</p>
+                <p>Pemberontakan ini meletus pada awal **tahun 1950-an**. Latar belakang utamanya adalah kekecewaan kelompok **PRT (Pasukan Kesatuan Rakyat yang Tertindas)** yang dipimpin Ibnu Hadjar terhadap kebijakan demobilisasi, reorganisasi, dan rasionalisasi (RERA) tubuh angkatan perang yang dinilai merugikan para pejuang lokal yang telah berjuang sejak masa revolusi melawan Belanda.</p>
+
+                <h3>2. Aliansi dengan NII dan Proses Penumpasan Militer</h3>
+                <p>Ibnu Hadjar bersama pasukannya melancarkan aksi gerilya di pedalaman hutan Kalimantan Selatan, menyerang pos-pos kepolisian, serta merebut persenjataan militer. Dalam perkembangannya, ia menjalin hubungan dengan Kartosuwiryo dan menyatakan bahwa gerakannya merupakan bagian dari sayap militer DI/TII di Kalimantan.</p>
+                <p>Pemerintah merespons dengan mengerahkan operasi militer gabungan darat dan udara ke wilayah pedalaman Kalimantan. Setelah melalui operasi pengejaran yang intensif, Ibnu Hadjar sempat beberapa kali melakukan tipu muslihat menyerah lalu kembali memberontak, hingga akhirnya ia berhasil ditangkap secara permanen, diadili, dan dijatuhi hukuman mati pada tahun **1963**, mengakhiri riwayat DI/TII di tanah Borneo.</p>
+            </div>
+        </div>
+
+        <!-- RUANG 7: DAMPAK & NILAI KETELADANAN -->
+        <div id="wing7" class="museum-wing">
+            <div class="exhibit-card">
+                <h2>Ruang Kuratorial VII: Dampak Komprehensif & Nilai Keteladanan Sejarah</h2>
+                
+                <h3>1. Dampak Multidimensional bagi Kehidupan Berbangsa</h3>
+                <ul>
+                    <li><strong>Ancaman Disintegrasi Nasional:</strong> Memecah fokus pertahanan negara pada saat Republik Indonesia baru saja berdiri dan harus menghadapi ancaman sisa-sisa kolonialisme.</li>
+                    <li><strong>Korban Jiwa & Penderitaan Rakyat:</strong> Puluhan ribu korban jiwa jatuh dari kalangan militer, pemberontak, dan rakyat sipil yang terjepit di tengah baku tembak serta aksi teror.</li>
+                    <li><strong>Kerusakan Ekonomi & Sosial:</strong> Anggaran negara yang sangat terbatas terkuras habis untuk membiayai operasi militer besar-besaran, sehingga pembangunan infrastruktur, pendidikan, dan kesejahteraan rakyat di daerah tertunda bertahun-tahun.</li>
+                </ul>
+
+                <h3>2. Nilai-Nilai Luhur dan Karakter yang Dapat Diteladani</h3>
+                <p>Dari catatan sejarah hitam konflik internal DI/TII ini, kita dapat memetik pelajaran berharga bagi masa depan kehidupan bernegara:</p>
+                <ul>
+                    <li><strong>Pentingnya Persatuan Nasional:</strong> Menyadari bahwa keutuhan NKRI di atas segala bentuk perbedaan ideologi, suku, dan golongan.</li>
+                    <li><strong>Mengutamakan Musyawarah Mufakat:</strong> Menyelesaikan setiap konflik atau ketidakpuasan daerah terhadap kebijakan pusat melalui dialog demokratis dan musyawarah (seperti contoh sukses penyelesaian di Aceh) alih-alih mengangkat senjata.</li>
+                    <li><strong>Merawat Moderasi Beragama:</strong> Menjaga persatuan bangsa dengan menjunjung tinggi nilai toleransi agar perbedaan penafsiran politis keagamaan tidak disalahgunakan untuk memecah belah persaudaraan sebangsa dan setanah air.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RUANG 8: UJIAN KUIS MUSEUM -->
+        <div id="wing8" class="museum-wing">
+            <div class="quiz-arena">
+                <h2>🎮 Arena Ujian Museum: Kuis Komprehensif Arsip DI/TII</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: var(--gold-light);">Uji tingkat pemahaman kuratorial Anda dari seluruh ruang galeri sejarah di atas!</p>
+
+                <!-- Soal 1 -->
+                <div class="question-card" id="q1">
+                    <p>1. Faktor pemicu utama yang mendorong S.M. Kartosuwiryo memproklamasikan Negara Islam Indonesia (NII) pada 7 Agustus 1949 adalah...</p>
+                    <div class="options-grid">
+                        <button class="opt-btn" onclick="answerQuiz(1, false)">A. Kegagalan Konferensi Meja Bundar di Den Haag</button>
+                        <button class="opt-btn" onclick="answerQuiz(1, true)">B. Kekecewaan terhadap Perjanjian Renville dan keharusan pasukan Siliwangi hijrah dari Jawa Barat</button>
+                        <button class="opt-btn" onclick="answerQuiz(1, false)">C. Dilarangnya partai politik Islam beroperasi di ibu kota</button>
+                        <button class="opt-btn" onclick="answerQuiz(1, false)">D. Penangkapan seluruh pimpinan partai Masyumi oleh militer</button>
+                    </div>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="question-card" id="q2">
+                    <p>2. Strategi militer inovatif apa yang digunakan oleh Divisi Siliwangi untuk memutus logistik dan ruang gerak DI/TII di pegunungan Jawa Barat?</p>
+                    <div class="options-grid">
+                        <button class="opt-btn" onclick="answerQuiz(2, false)">A. Operasi Sapu Bersih Laut Jawa</button>
+                        <button class="opt-btn" onclick="answerQuiz(2, true)">B. Strategi Pagar Betis dalam Operasi Bharatayudha</button>
+                        <button class="opt-btn" onclick="answerQuiz(2, false)">C. Operasi Kilat Banteng Hitam</button>
+                        <button class="opt-btn" onclick="answerQuiz(2, false)">D. Blokade Ekonomi Total Wilayah Priangan</button>
+                    </div>
+                </div>
+
+                <!-- Soal 3 -->
+                <div class="question-card" id="q3">
+                    <p>3. Bagaimana pemerintah pusat berhasil meredam dan menyelesaikan pemberontakan DI/TII di Aceh yang dipimpin Teungku Daud Beureueh?</p>
+                    <div class="options-grid">
+                        <button class="opt-btn" onclick="answerQuiz(3, false)">A. Melakukan operasi militer darurat dengan pemboman udara</button>
+                        <button class="opt-btn" onclick="answerQuiz(3, false)">B. Mengasingkan seluruh tokoh ulama Aceh ke luar negeri</button>
+                        <button class="opt-btn" onclick="answerQuiz(3, true)">C. Melalui pendekatan musyawarah damai dan pemulihan status Aceh sebagai Daerah Istimewa</button>
+                        <button class="opt-btn" onclick="answerQuiz(3, false)">D. Memberikan kemerdekaan penuh secara terpisah</button>
+                    </div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div class="question-card" id="q4">
+                    <p>4. Tokoh pemimpin DI/TII di Sulawesi Selatan yang memberontak akibat penolakan integrasi pasukan KGSS ke dalam APRIS adalah...</p>
+                    <div class="options-grid">
+                        <button class="opt-btn" onclick="answerQuiz(4, false)">A. Ibnu Hadjar</button>
+                        <button class="opt-btn" onclick="answerQuiz(4, false)">B. Amir Fatah</button>
+                        <button class="opt-btn" onclick="answerQuiz(4, true)">C. Kahar Muzakkar</button>
+                        <button class="opt-btn" onclick="answerQuiz(4, false)">D. Teungku Daud Beureueh</button>
+                    </div>
+                </div>
+
+                <!-- Soal 5 -->
+                <div class="question-card" id="q5">
+                    <p>5. Di wilayah mana gerakan DI/TII dipimpin oleh Ibnu Hadjar yang berawal dari kekecewaan kelompok pasukan PRT terhadap reorganisasi militer?</p>
+                    <div class="options-grid">
+                        <button class="opt-btn" onclick="answerQuiz(5, false)">A. Jawa Tengah</button>
+                        <button class="opt-btn" onclick="answerQuiz(5, true)">B. Kalimantan Selatan</button>
+                        <button class="opt-btn" onclick="answerQuiz(5, false)">C. Sulawesi Selatan</button>
+                        <button class="opt-btn" onclick="answerQuiz(5, false)">D. Sumatra Barat</button>
+                    </div>
+                </div>
+
+                <div id="quiz-score-board">
+                    Skor Museum Anda: <span id="current-score">0</span> / 5 Benar
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Pameran Museum Virtual Arsip Nasional • Kajian Komprehensif Disintegrasi Bangsa DI/TII</p>
+    </footer>
+
+    <script>
+        // Fungsi Berpindah Ruangan Museum (Museum Wings)
+        function switchWing(wingId) {
+            const wings = document.querySelectorAll('.museum-wing');
+            wings.forEach(wing => wing.classList.remove('active'));
+            
+            const buttons = document.querySelectorAll('.wing-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(wingId).classList.add('active');
+            
+            // Aktifkan tombol yang sesuai
+            event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Fungsi Khusus Navigasi Tombol yang Dipanggil via wingJump
+        function wingJump(wingId) {
+            const wings = document.querySelectorAll('.museum-wing');
+            wings.forEach(wing => wing.classList.remove('active'));
+            
+            const buttons = document.querySelectorAll('.wing-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(wingId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Logika Sistem Kuis Museum Interaktif
+        let score = 0;
+        let answeredQuestions = {};
+
+        function answerQuiz(questionNum, isCorrect) {
+            if (answeredQuestions[questionNum]) return;
+            answeredQuestions[questionNum] = true;
+
+            const card = document.getElementById('q' + questionNum);
+            const buttons = card.querySelectorAll('.opt-btn');
+
+            buttons.forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (btn.getAttribute('onclick').includes('true')) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            if (isCorrect) {
+                score++;
+                document.getElementById('current-score').innerText = score;
+            } else {
+                event.currentTarget.classList.add('wrong');
+            }
+        }
+    </script>
+</body>
+</html>
